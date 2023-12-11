@@ -24,9 +24,9 @@ public class RowCollector implements Comparable<Object>{
         } else if (value1 instanceof String && value2 instanceof String) {
             return ((String)value1).compareTo((String) value2);
         } else {
-            if (value1 instanceof Integer){
+            if (value1 instanceof Integer || value1 instanceof Double){
                 return -1;
-            } else if (value2 instanceof Integer) {
+            } else if (value2 instanceof Integer || value2 instanceof Double) {
                 return 1;
             }
         }
