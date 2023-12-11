@@ -37,7 +37,7 @@ public class RowCollector implements Comparable<Object> {
     public int compareTo(Object o) {
         int pos = 0;
         int out = compareTwoElem(o, pos);
-        while (out == 0 && pos < 2) { // Сортировка только по первым двум столбцам,
+        while (out == 0 && pos < ConstValues.countOfColumnsForSortOnThem) { // Сортировка только по первым двум столбцам,
             // но можно убрать (&& pos < 2) и получить сортировку на основе всех столбцов.
             try {
                 out = compareTwoElem(o, pos);
