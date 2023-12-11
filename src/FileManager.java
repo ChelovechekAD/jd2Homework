@@ -2,49 +2,60 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileManager {
 
-    public static ArrayList<ArrayList<Object>> read(){
-        try (FileReader reader = new FileReader("src/in.txt")) {
+    @Deprecated
+    public static Object converterInputString(String str) {
+
+        try {
+            return Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            try {
+                return Double.parseDouble(str);
+            } catch (NumberFormatException ex) {
+                return str;
+            }
+        }
+    }
+
+    public static Object converterInputStringOnRegEx(String str) {
+        return (str.matches("^[+-]?\\d+$")) ? Integer.parseInt(str) :
+                str.matches("^[+-]?(\\d+([.]\\d*)?|[.]\\d+)$") ? Double.parseDouble(str) : str;
+
+    }
+
+    public static List<List<Object>> read() {
+        try (FileReader reader = new FileReader(ConstValues.fileInPath)) {
             Scanner sc = new Scanner(reader);
-            ArrayList<ArrayList<Object>> array = new ArrayList<>();
+            List<List<Object>> array = new ArrayList<>();
             while (sc.hasNextLine()) {
                 Scanner line = new Scanner(sc.nextLine());
-                ArrayList<Object> arrLine = new ArrayList<>();
-                while (line.hasNext()){
+                List<Object> arrLine = new ArrayList<>();
+                while (line.hasNext()) {
                     String lineVal = line.next();
-                    try {
-                        arrLine.add(Integer.parseInt(lineVal));
-                    }catch (NumberFormatException e){
-                        try{
-                            arrLine.add(Double.parseDouble(lineVal));
-                        }catch (NumberFormatException ex) {
-                            arrLine.add(lineVal);
-                        }
-                    }
+                    arrLine.add(converterInputStringOnRegEx(lineVal));
                 }
                 array.add(arrLine);
                 line.close();
             }
-            reader.close();
-            sc.close();
             return array;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void write(ArrayList<ArrayList<Object>> array){
-        try (FileWriter writer = new FileWriter("src/out.txt")){
-            for (var line : array){
-                for (var elem : line){
+    public static void write(List<List<Object>> array) {
+        try (FileWriter writer = new FileWriter(ConstValues.fileOutPath)) {
+            for (var line : array) {
+                for (var elem : line) {
                     writer.write(elem + "\t");
                 }
                 writer.write("\n");
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

@@ -1,28 +1,29 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Main {
 
-    public static ArrayList<ArrayList<Object>> sort(ArrayList<ArrayList<Object>> array){
-        ArrayList<RowCollector> arrayRowCollector = new ArrayList<>();
+    public static List<List<Object>> sort(List<List<Object>> array) {
+        List<RowCollector> arrayRowCollector = new ArrayList<>();
 
-        for (var line : array){
+        for (var line : array) {
             arrayRowCollector.add(new RowCollector(line));
         }
         Collections.sort(arrayRowCollector);
 
-        ArrayList<ArrayList<Object>> finalArray = new ArrayList<>();
+        List<List<Object>> finalArray = new ArrayList<>();
         arrayRowCollector.forEach(elem -> finalArray.add(elem.getLine()));
         return finalArray;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
-        ArrayList<ArrayList<Object>> array = FileManager.read();
+        List<List<Object>> array = FileManager.read();
 
         //Для проверки типов в двумерке.
-        for (var i : array){
-            for(var j : i){
+        for (var i : array) {
+            for (var j : i) {
                 System.out.print(j.getClass() + " ");
             }
             System.out.println();
