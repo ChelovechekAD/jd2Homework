@@ -15,7 +15,15 @@ public class FileManager {
                 ArrayList<Object> arrLine = new ArrayList<>();
                 while (line.hasNext()){
                     String lineVal = line.next();
-                    arrLine.add(lineVal);
+                    try {
+                        arrLine.add(Integer.parseInt(lineVal));
+                    }catch (NumberFormatException e){
+                        try{
+                            arrLine.add(Double.parseDouble(lineVal));
+                        }catch (NumberFormatException ex) {
+                            arrLine.add(lineVal);
+                        }
+                    }
                 }
                 array.add(arrLine);
                 line.close();

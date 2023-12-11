@@ -20,6 +20,7 @@ public class Main {
 
         ArrayList<ArrayList<Object>> array = FileManager.read();
 
+        //Для проверки типов в двумерке.
         for (var i : array){
             for(var j : i){
                 System.out.print(j.getClass() + " ");
